@@ -174,8 +174,24 @@
 		      }
         }, opts.dlgopts );
 
+
+		//if dlg options position is not set and we are going to cascade the position
+		if (!dlgopts.position && opts.position_cascade){
+			var numDialogs = 0;
+			var lastDlg = null;
+			$('.ui-dialog').each(function(){
+				numDialogs++;
+				lastDlg = this;
+				console.log(numDialogs, $(lastDlg).position());
+			});
+			if (lastDlg) {
+				var position ={my: 'left top', at: 'left+10 top+10', of: lastDlg};
+				dlgopts.position = position;
+			}
+		}
         //actually create and show the dialog
     	$mydialog = $('#dialogsBasic_'+dlg_id).dialog(dlgopts);
+
     	return $mydialog;
     };
  
